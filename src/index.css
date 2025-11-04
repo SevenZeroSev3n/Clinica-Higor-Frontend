@@ -1,0 +1,33 @@
+/* src/index.css - CÓDIGO COMPLETO E UNIFICADO */
+
+/* 1. IMPORTAÇÃO DA FONTE */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* 2. DIRETIVAS DO TAILWIND CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3. KEYFRAMES PARA ANIMAÇÃO DE ROTAÇÃO */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 4. CLASSE UTILITÁRIA PARA ANIMAÇÃO */
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite; /* Rotação completa em 20 segundos */
+}
+
+/* 5. ESTILOS GLOBAIS (FUNDO BRANCO E TIPOGRAFIA) */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #FFFFFF; /* Fundo BRANCO */
+}
