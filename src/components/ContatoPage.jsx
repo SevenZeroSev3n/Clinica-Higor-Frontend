@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// URL do seu backend (onde o Express está rodando)
-const API_URL = 'http://localhost:5000/api/agendamentos';
+// CRÍTICO: URL do seu backend deve ser 8080 localmente
+const API_URL = 'https://higor-backend-prod-107420039047.southamerica-east1.run.app/api/agendamentos';
 
 // Função utilitária para formatar a data atual e hora mínima
 const getMinDateTime = () => {
@@ -26,8 +26,8 @@ const ContatoPage = () => {
     birthdate: '',
     phone: '',
     email: '',
-    'scheduling-date': today, // Define o valor inicial como HOJE
-    'scheduling-time': minTime, // Define o valor inicial como hora mínima
+    'scheduling-date': today,
+    'scheduling-time': minTime,
     address: '',
     message: '',
   });
@@ -69,8 +69,7 @@ const ContatoPage = () => {
     const preferredDateTime = new Date(`${formData['scheduling-date']}T${formData['scheduling-time']}:00`);
     const now = new Date();
     
-    // 🛑 Nota: A validação final e mais crítica de "passado vs futuro" está no SERVIDOR.
-    // Esta validação é apenas para a experiência do usuário.
+    // Validação de segurança dupla contra envio de datas passadas
     if (preferredDateTime < now) {
         setClientError('Por favor, escolha uma data e hora que não tenham passado.');
         setSubmissionStatus('');
@@ -149,9 +148,8 @@ const ContatoPage = () => {
             id="birthdate"
             value={formData.birthdate}
             onChange={handleChange}
-            // Mínimo e Máximo (para evitar datas absurdas, mas mantendo histórico)
             min="1920-01-01" 
-            max={today} // Não permite datas de nascimento futuras
+            max={today}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-main-black"
             required
           />
@@ -194,7 +192,7 @@ const ContatoPage = () => {
               id="scheduling-date"
               value={formData['scheduling-date']}
               onChange={handleChange}
-              min={today} // RESTRIÇÃO DE DATA: Não permite escolher datas passadas
+              min={today}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-main-black"
               required
             />
@@ -206,7 +204,6 @@ const ContatoPage = () => {
               id="scheduling-time"
               value={formData['scheduling-time']}
               onChange={handleChange}
-              // Não há um atributo 'min' para tempo no HTML que leve em conta a data atual, a validação é feita no handleSubmit (acima)
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-main-black"
               required
             />
