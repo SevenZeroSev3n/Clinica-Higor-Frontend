@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // CRÍTICO: URL do seu backend deve ser 8080 localmente
-const API_URL = 'https://higor-backend-prod-107420039047.southamerica-east1.run.app/api/agendamentos';
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Função utilitária para formatar a data atual e hora mínima
 const getMinDateTime = () => {
